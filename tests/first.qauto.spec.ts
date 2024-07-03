@@ -6,4 +6,5 @@ test("has title", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Hillel Qauto/);
   await expect(page.getByRole("button", { name: "Sign In" })).toBeVisible();
+  await page.pause();
 });
