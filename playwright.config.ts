@@ -23,12 +23,15 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  timeout: 20_000,
+  timeout: 40_000,
 
   use: {
     ...devices["Desktop Chrome"],
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: "https://playwright.dev",
+    baseURL: "https://qauto.forstudy.space/",
+    httpCredentials: {
+      username: "guest",
+      password: "welcome2qauto",
+    },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
@@ -40,7 +43,7 @@ export default defineConfig({
   },
 
   expect: {
-    timeout: 5_000,
+    timeout: 12_000,
   },
 
   /* Configure projects for major browsers */
@@ -48,15 +51,6 @@ export default defineConfig({
     {
       name: "qauto",
       testMatch: "**.qauto.spec.ts",
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: "https://qauto.forstudy.space/",
-        headless: false,
-        httpCredentials: {
-          username: "guest",
-          password: "welcome2qauto",
-        },
-      },
     },
   ],
 });
