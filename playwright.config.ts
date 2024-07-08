@@ -52,5 +52,9 @@ export default defineConfig({
       name: "qauto",
       testMatch: "**.qauto.spec.ts",
     },
+    {
+      name: "qauto_POM",
+      testMatch: "**.qauto.pom.spec.ts",
+    },
   ],
 });
