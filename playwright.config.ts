@@ -23,7 +23,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  timeout: 40_000,
+  timeout: 30_000,
 
   use: {
     ...devices["Desktop Chrome"],
@@ -43,7 +43,7 @@ export default defineConfig({
   },
 
   expect: {
-    timeout: 12_000,
+    timeout: 15_000,
   },
 
   /* Configure projects for major browsers */
@@ -51,6 +51,10 @@ export default defineConfig({
     {
       name: "qauto",
       testMatch: "**.qauto.spec.ts",
+    },
+    {
+      name: "qauto_POM",
+      testMatch: "**.qauto.pom.spec.ts",
     },
   ],
 });
