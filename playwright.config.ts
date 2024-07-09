@@ -5,8 +5,8 @@ import { defineConfig, devices } from "@playwright/test";
  * https://github.com/motdotla/dotenv
  */
 // import dotenv from 'dotenv';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
+//dotenv.config({ path: path.resolve(__dirname, ".env") });
+require("dotenv").config();
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -27,10 +27,10 @@ export default defineConfig({
 
   use: {
     ...devices["Desktop Chrome"],
-    baseURL: "https://qauto.forstudy.space/",
+    baseURL: process.env.BASE_URL,
     httpCredentials: {
-      username: "guest",
-      password: "welcome2qauto",
+      username: process.env.HTTP_CREDENTIALS_USERNAME!,
+      password: process.env.HTTP_CREDENTIALS_PASSWORD!,
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
