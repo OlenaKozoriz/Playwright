@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { Components } from "../src/pages/Components";
+import { RegistrationUser } from "../src/page-objects/components/RegistrationUser";
 
 test("User can be registered successfully", async ({ page }) => {
-  const components = new Components(page);
+  const components = new RegistrationUser(page);
   const regFirstNameLength = 5;
   const regPasswordLength = 13;
 
