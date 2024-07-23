@@ -7,6 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
 // import dotenv from 'dotenv';
 //dotenv.config({ path: path.resolve(__dirname, ".env") });
 require("dotenv").config();
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -22,6 +23,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
+  globalSetup: "global-setup.ts",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   timeout: 40_000,
 
@@ -32,6 +34,7 @@ export default defineConfig({
       username: process.env.HTTP_CREDENTIALS_USERNAME!,
       password: process.env.HTTP_CREDENTIALS_PASSWORD!,
     },
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
@@ -43,11 +46,39 @@ export default defineConfig({
   },
 
   expect: {
-    timeout: 12_000,
+    timeout: 15_000,
   },
 
   /* Configure projects for major browsers */
   projects: [
+    {
+      name: "login",
+      testMatch: "login.setup.ts",
+    },
+    {
+      name: "qauto_setup",
+      testMatch: "**.qauto.setup.spec.ts",
+      use: {
+        //Session storage is used for storing information associated with the signed-in state
+        storageState: "session-storage.json",
+      },
+      //Defining a project that runs before all other projects (in this case - "Logging in the registered user").
+      dependencies: ["login"],
+    },
+    {
+      name: "fixtures",
+      testMatch: "userGaragePage.spec.ts",
+    },
+    {
+      name: "qauto_fixture",
+      testMatch: "**.fixture.setup.spec.ts",
+      use: {
+        //Session storage is used for storing information associated with the signed-in state
+        storageState: "session-storage.json",
+      },
+      //Defining a project that runs before all other projects (in this case - "Logging in the registered user").
+      dependencies: ["fixtures"],
+    },
     {
       name: "qauto",
       testMatch: "**.qauto.spec.ts",
