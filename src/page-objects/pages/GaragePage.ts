@@ -9,6 +9,8 @@ export class GaragePage extends BasePage {
   _mileageInput: Locator;
   _addBtn: Locator;
   _logOutBtn: Locator;
+  _profileBtn: Locator;
+  _profileUserName: Locator;
 
   constructor(page: Page) {
     super(page, "panel/garage");
@@ -20,6 +22,10 @@ export class GaragePage extends BasePage {
     this._addCarModel = page.locator("#addCarModel");
     this._mileageInput = page.locator("#addCarMileage");
     this._addBtn = page.getByText("Add", { exact: true });
+    this._profileBtn = page.locator('[routerlink="profile"]');
+    this._profileUserName = page.locator(
+      ".profile d-flex flex-column align-items-center"
+    );
   }
 
   async selectBrand(brand: string) {
@@ -40,5 +46,8 @@ export class GaragePage extends BasePage {
   }
   async _logOut() {
     await this._logOutBtn.click();
+  }
+  async clickProfileButton() {
+    await this._profileBtn.click();
   }
 }
