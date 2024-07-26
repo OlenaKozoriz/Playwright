@@ -52,11 +52,19 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "login",
+      name: "qauto", //Locators, actions and asserts in Playwright
+      testMatch: "**.qauto.spec.ts",
+    },
+    {
+      name: "qauto_POM", //POM in Playwright
+      testMatch: "**.qauto.pom.spec.ts",
+    },
+    {
+      name: "login", //Session storage via the separate file, using context().storageState
       testMatch: "login.setup.ts",
     },
     {
-      name: "qauto_setup",
+      name: "qauto_setup", //Project with refferal to Login file with the storaged state
       testMatch: "**.qauto.setup.spec.ts",
       use: {
         //Session storage is used for storing information associated with the signed-in state
@@ -66,11 +74,11 @@ export default defineConfig({
       dependencies: ["login"],
     },
     {
-      name: "fixtures",
+      name: "fixtures", //Session storage via the separate FIXTURE file
       testMatch: "userGaragePage.spec.ts",
     },
     {
-      name: "qauto_fixture",
+      name: "qauto_fixture", //Project with refferal to the fixture with the storaged state
       testMatch: "**.fixture.setup.spec.ts",
       use: {
         //Session storage is used for storing information associated with the signed-in state
@@ -80,12 +88,21 @@ export default defineConfig({
       dependencies: ["fixtures"],
     },
     {
-      name: "qauto",
-      testMatch: "**.qauto.spec.ts",
+      name: "qauto_mocking", //Playwright Network (project with Response Body mocking)
+      testMatch: "profileMockResponse.setup.spec.ts",
+      use: {
+        storageState: "session-storage.json",
+      },
+
+      dependencies: ["fixtures"],
     },
     {
-      name: "qauto_POM",
-      testMatch: "**.qauto.pom.spec.ts",
+      name: "api-testing", //Playwright API Request)
+      testMatch: "*api/*.spec.ts",
+      use: {
+        storageState: "session-storage.json",
+      },
+      dependencies: ["fixtures"],
     },
   ],
 });
