@@ -7,7 +7,7 @@ export class BasePage {
 
   constructor(page: Page, url: string) {
     this._page = page;
-    this._url = "/";
+    this._url = url;
   }
   async _navigate() {
     return this._page.goto(this._url);

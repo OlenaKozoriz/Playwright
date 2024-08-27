@@ -6,8 +6,4 @@ COPY . .
 
 RUN npm install
 
-ENV BASE_URL = https://qauto.forstudy.space
-ENV HTTP_CREDENTIALS_USERNAME = guest
-ENV HTTP_CREDENTIALS_PASSWORD = welcome2qauto
-
 CMD ["npx", "playwright", "test"]
